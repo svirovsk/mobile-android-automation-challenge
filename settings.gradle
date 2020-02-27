@@ -1,0 +1,2 @@
+rootProject.name='GymondoAutomationTest'
+include ':app'
