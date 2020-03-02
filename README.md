@@ -9,5 +9,6 @@
 
 ### Additional Info:
    **Username**: automation@gymondo.de
+   
    **Password**: automation
 
