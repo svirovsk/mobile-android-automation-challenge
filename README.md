@@ -7,3 +7,7 @@
   
   3) Open the repository in Android Studio and build the application. You can choose to build it on a physical device or an emulator.
 
+### Additional Info:
+    **Username**: automation@gymondo.de
+    **Password**: automation
+

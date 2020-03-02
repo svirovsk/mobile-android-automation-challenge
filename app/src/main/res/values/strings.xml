@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">GymondoAutomationTest</string>
+    <string name="search_for_exercise">Search for exercise</string>
+    <string name="enter_e_mail_here">Enter e-mail here</string>
+    <string name="enter_password_here">Enter password here</string>
+    <string name="login">Login</string>
 </resources>
