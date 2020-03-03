@@ -18,6 +18,8 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class ListActivity : AppCompatActivity() {
@@ -50,16 +52,10 @@ class ListActivity : AppCompatActivity() {
 
             override fun onResponse(call: Call<Exercise>, response: Response<Exercise>) {
                 if (response.isSuccessful) {
-                    val resultList = response.body()?.results
-                    resultList?.forEach {
-                        it.name?.also { name ->
-                            if (name.isNotEmpty()) {
-                                val id = it.id.toString()
-                                listOfExercises.add("$id $name")
-                            }
-                        }
-                        recycler_view.adapter?.notifyDataSetChanged()
+                    response.body()?.results?.filter { !it.name.isNullOrEmpty() }?.forEach {
+                        listOfExercises.add("${it.id} - ${it.name}")
                     }
+                    recycler_view.adapter?.notifyDataSetChanged()
                 } else {
                     Toast.makeText(this@ListActivity, "Response not successful", Toast.LENGTH_LONG)
                         .show()
@@ -78,15 +74,16 @@ class ListActivity : AppCompatActivity() {
 
     private fun setupListeners() {
         btnSearch.setOnClickListener {
-            recycler_view.adapter =
-                MyAdapter(listOfExercises.filter { it.contains(editTxtSearch.text.toString()) })
-            recycler_view.adapter?.notifyDataSetChanged()
+            (recycler_view.adapter as MyAdapter).setNewDataSet(listOfExercises.filter {
+                it.toLowerCase(Locale.getDefault()).contains(
+                    editTxtSearch.text.toString().toLowerCase(Locale.getDefault())
+                )
+            })
             clearFocusAndCloseKeyboard()
         }
 
         btnClear.setOnClickListener {
-            recycler_view.adapter = MyAdapter(listOfExercises)
-            recycler_view.adapter?.notifyDataSetChanged()
+            (recycler_view.adapter as MyAdapter).setNewDataSet(listOfExercises)
             editTxtSearch.text.clear()
         }
     }
@@ -101,7 +98,7 @@ class ListActivity : AppCompatActivity() {
         editTxtSearch.clearFocus()
     }
 
-    class MyAdapter(private val myDataSet: List<String>) :
+    class MyAdapter(var dataSet: List<String>) :
         RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
 
         class MyViewHolder(val textView: TextView) : RecyclerView.ViewHolder(textView)
@@ -118,10 +115,15 @@ class ListActivity : AppCompatActivity() {
         }
 
         override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-            holder.textView.text = myDataSet[position]
+            holder.textView.text = dataSet[position]
         }
 
-        override fun getItemCount() = myDataSet.size
+        override fun getItemCount() = dataSet.size
+
+        fun setNewDataSet(newDataSet: List<String>) {
+            dataSet = newDataSet
+            notifyDataSetChanged()
+        }
     }
 }
 
