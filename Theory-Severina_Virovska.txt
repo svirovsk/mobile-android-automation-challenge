@@ -1,0 +1,26 @@
+● Why did you choose the framework you used?
+I chose to write the tests with Espresso for the Android app as I don't have a MacBook to use XCode 
+and this is also the framework used by Gymondo and I wanted to see if I can work with it.
+
+● What were the advantages and disadvantages of your choice?
+For this question I'll compare Espresso with Appium since I’ve been working with it before.
+The main disadvantage of Espresso for me personally was that it was new to me and I needed some 
+time to get used to it. Another disadvantage that I see is that Espresso supports only automation 
+for Android and the tests for iOS should be written separately. That doubles the work on creating 
+and maintaining the test scripts. But the framework has definitely also a lot of advantages. 
+It is easier to use than Appium. Appium needs a more complicated setup because of its client-server architecture.
+Espresso is faster than Appium and can test toast messages, which Appium cannot.
+
+● What was the most complicated part?
+I had some difficulties with the setup of Android Studio and with the choice of test cases which should be automated,
+but the most complicated part was the implementation of the tests for the search and more precisely the use of Matchers and ViewAssertions.
+
+● Which good coding practices did you follow when writing your tests?
+Keeping the code simple, commenting, using variables and functions with meaningful and self-explanatory names,
+avoiding long lines in code and code repetitions
+
+● How do you make sure your code is maintainable by other team members?
+By using the coding practices from above, the code should be readable and understandable by other 
+team members so that they can also maintain it. 
+The use of Page Object Model Pattern makes it easier for maintaining when the UI of the app changes. 
+The tests don’t have to be changed, but only the code in the Page Objects.
